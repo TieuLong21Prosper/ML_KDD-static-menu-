@@ -1,0 +1,33 @@
+Để  xử lý các lab học máy cần làm theo quy trình sau:
+1) Data gathering (thu thập dữ liệu)
+    - Ở bước này cần phải đưa dữ liệu từ file .csv vào dataframe
+    - Sau đó đặt lại tên cho các cột và phân loại các record vào các 4 loại tấn công
+2) Data processing (xử lý dữ liệu) 
+    - Đây có thể coi là bước quan trọng nhất bởi dữ liệu không đồng nhất, làm giảm độ chính xác cho mô hình huấn luyện và kết quả dự đoàn
+    - Đối với dataset NSL-KDD cần phải sử dụng one-hot encoding để chuyển các thuộc tính catagorial - nominal (thuộc tính mang value string: protocol_type = tcp,...)
+    - Đổi các nhãn (label) tấn công từ dạng chữ (DOS, Probe,...) sang dạng số  0 - 1 - ...
+    - Scale dữ liệu để đưa các chỉ số hay value của dữ liệu về range gần nhau nhất có thể (ở đây sử dụng cả standardscale và minmaxscale)
+3) Feature selection (trích chọn đặc trưng)
+    - Vì số lượng feature là rất lớn (41 thuộc tính tăng lên hơn 100 thuộc tính sau bước 2) nên cần chọn ra các thuộc tính có độ quan trọng cao nhất
+    - Các thuộc tính có độ quan trọng cao được lựa chọn bằng phương pháp Recursive feature elimination (RFE), bài báo cáo tìm 30 thuộc tính
+    - RFE sẽ tìm ra các thuộc tính có độ tác động nhỏ tới dữ liệu và loại bỏ chúng, quá trình thực hiện liên tục cho tới khi tìm đủ 30 thuộc tính có độ tác động lớn
+    - RFE trong bài báo cáo sử dụng thuật toán cây quyết định (Decision tree) để tìm thuộc tính
+4) Feature extraction (trích xuất đặc trưng)
+    - Sử dụng PCA làm phương pháp trích xuất đặc trưng, giảm từ 30 feature xuống 15 feature
+5) Train model (huấn luyện mô hình machine learning)
+6) Tính toán hiệu năng mô hình
+    - Accuracy
+
+!!! Mô hình bị Overfitting !!!
+Có thể sử lý việc bị Overfitting bằng một số phương pháp sau:
+1) Giảm số lượng features
+2) Tăng dữ liệu Train
+3) Giảm độ phức tạp của mô hình (Đối với CNN, deep learning)
+4) Kết thúc quá trình train sớm hơn (Đối với CNN có thể tăng batch size)
+
+
+LINK THAM KHẢO
+1) https://github.com/SABDULLAHJ/Anomaly-Detection-on-NSL-KDD-dataset/blob/master/RFE%20and%20Polynomials%20-%20Final%20version%20.ipynb
+2) https://github.com/Deepthi10/Intrusion-Detection-using-Machine-Learning-on-NSL--KDD-dataset/blob/master/IDS.ipynb
+3) https://github.com/tuanio/autoencoder-anomaly-detection/blob/main/Autoencoder_AnomalyDetector_NSLKDD.ipynb
+4) https://tuhoclaptrinhsite.wordpress.com/2021/08/15/hieu-ro-ve-hoc-co-giam-sat-supervised-learning-va-hoc-khong-giam-sat-unsupervised-learning/
